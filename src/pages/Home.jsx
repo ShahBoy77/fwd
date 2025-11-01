@@ -1,26 +1,10 @@
 import React, { useState, useEffect } from "react";
-import MetallicPaint, { parseLogoImage } from "./MetallicPaint";
 import Beams from "./Beams"; // Import Beams
 import "./home.css";
 
 const HomePage = () => {
   const [imageData, setImageData] = useState(null);
 
-  useEffect(() => {
-    async function loadDefaultImage() {
-      try {
-        const response = await fetch("/images/a_logo.svg");
-        if (!response.ok) throw new Error("Logo not found");
-        const blob = await response.blob();
-        const file = new File([blob], "default.png", { type: blob.type });
-        const parsedData = await parseLogoImage(file);
-        setImageData(parsedData?.imageData ?? null);
-      } catch (err) {
-        console.error("Error loading default image:", err);
-      }
-    }
-    loadDefaultImage();
-  }, []);
 
   return (
     <div className="homepage" style={{ position: "relative" }}>
@@ -63,17 +47,7 @@ const HomePage = () => {
       {/* Main Section */}
       <main className="main-content" style={{ position: "relative", zIndex: 1 }}>
         <div className="left-panel">
-          <MetallicPaint
-            imageData={imageData ?? new ImageData(1, 1)}
-            params={{
-              edge: 0.1,
-              patternBlur: 0.05,
-              patternScale: 2,
-              refraction: 0.04,
-              speed: 0.2,
-              liquid: 0.07,
-            }}
-          />
+
         </div>
 
         <div className="right-panel">
